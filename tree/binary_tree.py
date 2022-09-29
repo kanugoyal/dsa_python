@@ -49,8 +49,38 @@ class BinarySearchTreeNode:
             else:
                 return False
 
+    def delete(self,val):
+        if val<self.data:
+            if self.left:
+             self.left = self.left.delete(val)
 
+        elif val>self.data:
+            if self.right:
+             self.right = self.right.delete(val)
 
+        else:
+            if self.left is None and self.right is None:
+                return None
+            elif self.left is None:
+                return self.right
+            elif self.right is None:
+                return self.left
+
+            min_val = self.right.find_min()
+            self.data = min_val
+            self.right = self.right.delete(min_val)
+        
+        return self
+
+    def find_min(self):
+        if self.left is None:
+            return self.data
+        return self.left.find_min()
+
+    def find_max(self):
+        if self.right is None:
+            return self.data
+        return self.right.find_max()
 
 def build_tree(elements):
     print("Building tree with :",elements)
@@ -76,4 +106,11 @@ if __name__ == '__main__':
     print(countries_tree.in_order_traversal())
     print(countries_tree.search("India"))
     print(countries_tree.search("Usa"))
-    pass
+    
+    
+    number_tree = build_tree([10,5,8,22,15,14,17,18,19])
+    print(number_tree.in_order_traversal())
+    number_tree.delete(17)
+    number_tree.delete(8)
+    print(number_tree.in_order_traversal())
+    
