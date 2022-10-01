@@ -9,8 +9,8 @@ def swap(a, b, arr):
 def quick_sort(elements, start, end):
     if start < end:
         pi = partition(elements, start, end)
-        quick_sort(elements, start, pi-1)
-        quick_sort(elements, pi+1, end)
+        quick_sort(elements, start, pi-1)       #left partition 
+        quick_sort(elements, pi+1, end)       #right partition
 
 def partition(elements, start, end):
     pivot_index = start
