@@ -1,30 +1,40 @@
-def swap(a,b, arr):
-    if a != b:
-      temp = arr[a]
-      arr[a] = arr[b]
-      arr[b] = temp
+def swap(a, b, arr):
+    if a!=b:
+        tmp = arr[a]
+        arr[a] = arr[b]
+        arr[b] = tmp
 
+def quick_sort(elements, start, end):
+    if len(elements)== 1:
+        return
+    if start < end:
+        pi = partition(elements, start, end)
+        quick_sort(elements, start, pi-1)
+        quick_sort(elements, pi+1, end)
 
-def partition(elements, start,end):
-    pivot_index = 0
-    pivot = elements[pivot_index]
-    start = pivot_index +1
-    end = len(elements)-1
+def partition(elements, start, end):
+    pivot = elements[end]
+    p_index = start
 
-    while start <end :
-        while elements[start]<= pivot:
-            start += 1
-        while elements[end]> pivot:
-            end -= 1
-        if start< end:
-            swap(start, end,elements)
+    for i in range(start, end):
+        if elements[i] <= pivot:
+            swap(i, p_index, elements)
+            p_index += 1
 
-    swap(pivot_index, end,elements)
+    swap(p_index, end, elements)
 
-def quick_sort(elements, start,end):
-    partition(elements,start,end)
+    return p_index
+
 
 if __name__ == '__main__':
-    elements = [11,9,29,7,2,15,28]
-    quick_sort(elements,0,len(elements)-1)
-    print(elements)
+    tests = [
+        [22,14,32,5,0,88,72],
+        ["mona", "dhaval", "aamir", "tina", "chang"],
+        [],
+        [1,15,20]
+    ]
+    # elements = ["mona", "dhaval", "aamir", "tina", "chang"]
+
+    for elements in tests:
+        quick_sort(elements, 0, len(elements)-1)
+        print(f'sorted array: {elements}')
